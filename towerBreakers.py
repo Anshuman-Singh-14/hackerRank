@@ -22,37 +22,75 @@ def towerBreakers(n, m):
     #           if mf > 0 then p2 wins
     #           if mf < 0 then p1 wins
 
-
+    
     l = [m for i in range(n)]
+    while validMoveFlag:
+        # print(l)
+        vm, validMoveFlag = findValidMove(l)
+        res = checkWinner(moveFlag, validMoveFlag)
+        if validMoveFlag:
+            l, moveFlag = makeMove(l, vm, moveFlag)
+        else:
+            return res
 
-    vm, validMoveFlag = checkValidMove(l)
+def checkWinner(mf, vmf):
 
-    #print(l)
+    if vmf == False:
+
+        if mf == 1:
+            return 2
+        elif mf == -1:
+            return 1
+
+    else:
+        pass
 
 
-def checkValidMove(l):
+def findValidMove(l):
 
     move = []
-    vmf = True
+    vmf = False
 
+    for i in range(len(l)):
+        
+        if l[i] > 1:
+            # print("found > 1")
+            vmf = True
 
-
+            for j in range(l[i], 1, -1):
+                # print(j)
+                # print(l[i], j, )
+                if l[i] % j == 0:
+                    move = [i, j]
+                    # print(move)
+                    break
+            break
+        else:
+            pass
+            # print("didnt find")
     return move, vmf
     
 
-def main():
+def makeMove(l, move, mf):
 
+    l[move[0]] = l[move[0]] // move[1]
+    mf *= -1
+
+    return l, mf
+
+
+def main():
+    res = []
     for _ in range(int(input())):
 
-        dataIn = input().rstrip.split()
+        dataIn = input().rstrip().split()
         
         n = dataIn[0]   # number of towers
         m = dataIn[1]   # height of each tower
 
-        towerBreakers(n, m)
-        
-towerBreakers(4, 4)
-
+        res.append(towerBreakers(int(n), int(m)))
+    print(*(k for k in res), sep="\n")
+main()
 
 
 """
