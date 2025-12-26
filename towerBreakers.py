@@ -8,6 +8,25 @@
 #  2. INTEGER m
 #
 
+
+#THE MOST OPTIMAL SOLUTION WAS NOT IN THE CODE, BUT UNDERSTANDING THE PROBLEM
+# ANALYSING IT AND COMING UP WITH A LOGIC THAT SATISFIES THE PROBLEM
+
+def towerBreakers2(n, m):
+    # If all towers are height 1, P1 cannot move -> P2 wins
+    if m == 1:
+        return 2
+    # If number of towers is even, P2 can mirror P1 -> P2 wins
+    if n % 2 == 0:
+        return 2
+    # Otherwise P1 wins
+    return 1
+
+
+
+
+
+
 def towerBreakers(n, m):
     #
 
@@ -88,7 +107,7 @@ def main():
         n = dataIn[0]   # number of towers
         m = dataIn[1]   # height of each tower
 
-        res.append(towerBreakers(int(n), int(m)))
+        res.append(towerBreakers2(int(n), int(m)))
     print(*(k for k in res), sep="\n")
 main()
 
